@@ -6,9 +6,14 @@ import {
   Text,
   Tabs,
   rem,
+  Modal,
 } from '@mantine/core';
+import { useDisclosure } from '@mantine/hooks';
 import { HeaderResponsiveProps } from '../types/Types'
 import BaseButton from './BaseButton';
+import Cart from './Cart';
+import { useNavigate } from "react-router-dom";
+import { HiOutlineShoppingCart } from 'react-icons/hi'
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -65,9 +70,14 @@ const useStyles = createStyles((theme) => ({
 }));
 
 function HeaderResponsive({ user, tabs }: HeaderResponsiveProps) {
+
+  const navigate = useNavigate();
   const { classes, theme, cx } = useStyles();
 
+  const [opened, { open, close }] = useDisclosure(false);
+
   const openCart = () => {
+    navigate("/cart")
     console.log("Cart opened")
   }
 
@@ -90,7 +100,18 @@ function HeaderResponsive({ user, tabs }: HeaderResponsiveProps) {
                 </Text>
           </Group>
 
-          <BaseButton title='My Cart' onClickCallback={openCart}/>
+          <Modal opened={opened} onClose={close} title="My Cart" centered>
+              <Cart />
+          </Modal>
+
+          <Group position="center">
+              <BaseButton
+                title='My Cart'
+                icon={<HiOutlineShoppingCart/>}
+                size='md'
+                colour='red'
+                onClickCallback={open} />
+          </Group>
 
         </Group>
 

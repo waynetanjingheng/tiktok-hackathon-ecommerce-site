@@ -2,7 +2,14 @@ import HeaderResponsive from '../components/HeaderResponsive'
 import ProductCard from '../components/ProductCard'
 import ProductGrid from '../components/ProductGrid';
 
+import { useCart } from "react-use-cart";
+
+
 const Home = () => {
+    const {
+        setItems
+      } = useCart();
+
   const defaultuser = {
     name: "Marcus Hooi",
     image: "default-user-icon-13.jpg"
@@ -20,7 +27,8 @@ const Home = () => {
     const productlist = [
 
         {
-            id: 11111,
+            id: "11111",
+            price: 560,
             image: {
                 src: "7",
                 alt: "Iphone 7 product listing"
@@ -30,7 +38,8 @@ const Home = () => {
         },
 
         {
-            id: 22222,
+            id: "22222",
+            price: 889,
             image: {
                 src: "XR",
                 alt: "Iphone XR product listing"
@@ -40,7 +49,8 @@ const Home = () => {
         },
 
         {
-            id: 33333,
+            id: "33333",
+            price: 1130,
             image: {
                 src: "11",
                 alt: "Iphone 11 product listing"
@@ -50,7 +60,8 @@ const Home = () => {
         },
 
         {
-            id: 44444,
+            id: "44444",
+            price: 1677,
             image: {
                 src: "13",
                 alt: "Iphone 13 product listing"

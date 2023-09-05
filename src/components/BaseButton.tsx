@@ -1,14 +1,13 @@
-import { Button, createStyles } from '@mantine/core';
-import { HiOutlineShoppingCart } from 'react-icons/hi'
+import { Button } from '@mantine/core';
 import { BaseButtonProps } from '../types/Types';
 
-const BaseButton = ({ title, onClickCallback }: BaseButtonProps) => {
+const BaseButton = ({ title, icon, size, colour, onClickCallback }: BaseButtonProps) => {
 
   return (
     <Button 
-        color='red'
-        leftIcon={<HiOutlineShoppingCart />}
-        size='md'
+        color={colour}
+        leftIcon={icon}
+        size={size}
         onClick={onClickCallback}
     >
         {title}

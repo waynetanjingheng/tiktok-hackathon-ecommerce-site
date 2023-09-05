@@ -5,6 +5,9 @@ export type HeaderResponsiveProps = {
 
 export type BaseButtonProps = {
     title: string,
+    icon: React.ReactNode,
+    size: string,
+    colour: string,
     onClickCallback: () => void
 };
 
@@ -14,7 +17,8 @@ export type ProductCardProps = {
         alt: string
     },
 
-    id: number,
+    id: string,
+    price: number,
     name: string,
     description: string,
     addItemToCart: ProductGridProps["addItemToCart"]
@@ -26,7 +30,8 @@ export type Product = {
         alt: string
     },
 
-    id: number,
+    id: string,
+    price: number,
     name: string,
     description: string,
 }

@@ -21,6 +21,7 @@ function ProductGrid({ productlist, addItemToCart }: ProductGridProps) {
                     key={product.id}
                     image={product.image}
                     id={product.id}
+                    price={product.price}
                     name={product.name}
                     description={product.description}
                     addItemToCart={addItemToCart}
