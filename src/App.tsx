@@ -1,25 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
+import { MantineProvider } from '@mantine/core';
+import PATHS from './constants/paths'
+import Home from './pages/Home'
+import MyCart from './pages/MyCart';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <MantineProvider withGlobalStyles withNormalizeCSS>
+        <BrowserRouter>
+            <Routes>
+                <Route path={PATHS.HOME} element={<Home />} />
+                <Route path={PATHS.CART} element={<MyCart />} />
+            </Routes>
+        </BrowserRouter>
+    </MantineProvider>
   );
 }
 
