@@ -2,7 +2,7 @@ import { SimpleGrid } from '@mantine/core';
 import ProductCard from './ProductCard';
 import { ProductGridProps } from '../types/Types';
 
-function ProductGrid({ productlist, addItemToCart }: ProductGridProps) {
+function ProductGrid({ productlist }: ProductGridProps) {
   return (
     <SimpleGrid 
         cols={4}
@@ -19,12 +19,12 @@ function ProductGrid({ productlist, addItemToCart }: ProductGridProps) {
             (product) => (
                 <ProductCard 
                     key={product.id}
+                    product_object={product}
                     image={product.image}
                     id={product.id}
                     price={product.price}
                     name={product.name}
                     description={product.description}
-                    addItemToCart={addItemToCart}
                 />
             )
         )

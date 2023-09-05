@@ -12,6 +12,7 @@ export type BaseButtonProps = {
 };
 
 export type ProductCardProps = {
+    product_object: Product,
     image: {
         src: string,
         alt: string
@@ -21,7 +22,6 @@ export type ProductCardProps = {
     price: number,
     name: string,
     description: string,
-    addItemToCart: ProductGridProps["addItemToCart"]
 };
 
 export type Product = {
@@ -38,5 +38,4 @@ export type Product = {
 
 export type ProductGridProps = {
     productlist: Product[];
-    addItemToCart: () => void
 };

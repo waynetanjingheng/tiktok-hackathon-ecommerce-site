@@ -1,10 +1,10 @@
 import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
 import { ProductCardProps } from '../types/Types';
+import { useCart } from 'react-use-cart';
 
-function ProductCard({ image, id, name, description, addItemToCart }: ProductCardProps) {
-    const callback = () => {
-        console.log('mock')
-    }
+function ProductCard({ product_object, image, id, name, description }: ProductCardProps) {
+
+    const { addItem } = useCart();
 
   return (
     <Card shadow="sm" padding="lg" radius="md" withBorder>
@@ -27,7 +27,7 @@ function ProductCard({ image, id, name, description, addItemToCart }: ProductCar
         {description}
       </Text>
 
-      <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={addItemToCart}>
+      <Button variant="light" color="blue" fullWidth mt="md" radius="md" onClick={() => addItem(product_object, 1)}>
         Add to Cart
       </Button>
 

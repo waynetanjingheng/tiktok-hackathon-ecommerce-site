@@ -3,28 +3,32 @@ import BaseButton from "./BaseButton";
 import { MdRemoveCircle } from 'react-icons/md'
 import { IoMdAdd } from 'react-icons/io'
 import { AiFillDelete } from 'react-icons/ai'
-import { Card, Group, Text, SimpleGrid } from '@mantine/core'
+import { RiDeleteBin5Line } from 'react-icons/ri'
+import { Card, Group, Text, SimpleGrid, Space } from '@mantine/core'
 
 function Cart() {
 
     const {
         isEmpty,
         totalUniqueItems,
+        totalItems,
         items,
         updateItemQuantity,
         removeItem,
+        emptyCart,
+        cartTotal
       } = useCart();
 
     if (isEmpty) return <p>Your cart is empty</p>;
 
   return (
     <>
-        <h1>Cart ({totalUniqueItems})</h1>
+        <p>{totalUniqueItems} unique products in your cart.</p>
 
         {items.map((item) => (
             <Card 
                 key={item.id}
-                padding='sm'
+                padding='lg'
                 radius='sm'
                 withBorder
             >
@@ -69,6 +73,19 @@ function Cart() {
 
             </Card>
         ))}
+
+        <Space h="lg" />
+
+        <p>Total item quantity: {totalItems}</p>
+        <h3>Cart Total: ${cartTotal}</h3>
+
+        <BaseButton 
+            colour="red"
+            icon={<RiDeleteBin5Line />}
+            size="md"
+            onClickCallback={() => emptyCart()}
+            title="Empty Cart"
+        />
     </>
   );
 };

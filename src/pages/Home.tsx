@@ -2,13 +2,7 @@ import HeaderResponsive from '../components/HeaderResponsive'
 import ProductCard from '../components/ProductCard'
 import ProductGrid from '../components/ProductGrid';
 
-import { useCart } from "react-use-cart";
-
-
 const Home = () => {
-    const {
-        setItems
-      } = useCart();
 
   const defaultuser = {
     name: "Marcus Hooi",
@@ -19,10 +13,6 @@ const Home = () => {
         "Products",
         "What's New"
     ];
-
-    const addItemToCartMain = () => {
-        console.log('Main function to add item to cart.')
-    }
 
     const productlist = [
 
@@ -76,7 +66,7 @@ const Home = () => {
     <>
         <HeaderResponsive user={defaultuser} tabs={defaulttabs}/>
 
-        <ProductGrid productlist={productlist} addItemToCart={addItemToCartMain}/>
+        <ProductGrid productlist={productlist} />
     </>
   )
 }
