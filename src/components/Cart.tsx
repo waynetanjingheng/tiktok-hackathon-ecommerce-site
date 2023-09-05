@@ -6,11 +6,16 @@ import { AiFillDelete } from 'react-icons/ai'
 import { RiDeleteBin5Line } from 'react-icons/ri'
 import { IoBagCheckOutline } from 'react-icons/io5'
 import { Card, Group, Text, SimpleGrid, Space } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+
+import { useNavigate } from "react-router";
 
 function Cart() {
 
-    const [opened, { open, close }] = useDisclosure(false);
+    const navigate = useNavigate();
+
+    const loadQrPaymentPage = () => {
+        navigate('/payment');
+    };
 
     const {
         isEmpty,
@@ -97,7 +102,7 @@ function Cart() {
                 colour="green"
                 icon={<IoBagCheckOutline />}
                 size="md"
-                onClickCallback={open}
+                onClickCallback={loadQrPaymentPage}
                 title="Checkout with TMoney"
             />
         </SimpleGrid>

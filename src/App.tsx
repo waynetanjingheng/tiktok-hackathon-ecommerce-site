@@ -4,6 +4,8 @@ import { ModalsProvider } from '@mantine/modals';
 import PATHS from './constants/paths'
 import Home from './pages/Home'
 import MyCart from './pages/MyCart';
+import Payment from './pages/Payment';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
                 <Routes>
                     <Route path={PATHS.HOME} element={<Home />} />
                     <Route path={PATHS.CART} element={<MyCart />} />
+                    <Route path={PATHS.PAYMENT} element={<Payment />} />
+                    <Route path={PATHS.PAYMENT_SUCCESS} element={<PaymentSuccess />} />
                 </Routes>
             </BrowserRouter>
         </ModalsProvider>
