@@ -1,6 +1,6 @@
 const PATHS = {
     HOME: "/",
-    CART: "/cart"
+    CART: "/cart",
 }
 
 export default PATHS;

@@ -4,9 +4,13 @@ import { MdRemoveCircle } from 'react-icons/md'
 import { IoMdAdd } from 'react-icons/io'
 import { AiFillDelete } from 'react-icons/ai'
 import { RiDeleteBin5Line } from 'react-icons/ri'
+import { IoBagCheckOutline } from 'react-icons/io5'
 import { Card, Group, Text, SimpleGrid, Space } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 
 function Cart() {
+
+    const [opened, { open, close }] = useDisclosure(false);
 
     const {
         isEmpty,
@@ -79,13 +83,24 @@ function Cart() {
         <p>Total item quantity: {totalItems}</p>
         <h3>Cart Total: ${cartTotal}</h3>
 
-        <BaseButton 
-            colour="red"
-            icon={<RiDeleteBin5Line />}
-            size="md"
-            onClickCallback={() => emptyCart()}
-            title="Empty Cart"
-        />
+
+        <SimpleGrid>
+            <BaseButton 
+                colour="red"
+                icon={<RiDeleteBin5Line />}
+                size="md"
+                onClickCallback={() => emptyCart()}
+                title="Empty Cart"
+            />
+
+            <BaseButton 
+                colour="green"
+                icon={<IoBagCheckOutline />}
+                size="md"
+                onClickCallback={open}
+                title="Checkout with TMoney"
+            />
+        </SimpleGrid>
     </>
   );
 };
