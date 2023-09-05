@@ -1,8 +1,8 @@
-import { Card, Image, Text, Badge, Button, Group } from '@mantine/core';
+import { Card, Image, Text, Badge, Button, Group, Space } from '@mantine/core';
 import { ProductCardProps } from '../types/Types';
 import { useCart } from 'react-use-cart';
 
-function ProductCard({ product_object, image, id, name, description }: ProductCardProps) {
+function ProductCard({ product_object, image, id, price, name, description }: ProductCardProps) {
 
     const { addItem } = useCart();
 
@@ -11,7 +11,7 @@ function ProductCard({ product_object, image, id, name, description }: ProductCa
       <Card.Section>
         <Image
           src={ require(`../assets/images/Iphone_${image.src}.jpeg`) }
-          height={160}
+          height={200}
           alt={image.alt}
         />
       </Card.Section>
@@ -22,6 +22,12 @@ function ProductCard({ product_object, image, id, name, description }: ProductCa
           On Sale
         </Badge>
       </Group>
+
+      <Text color='green' weight={600}>
+        ${price}
+      </Text>
+
+      <Space h="sm" />
 
       <Text size="sm" color="dimmed">
         {description}
