@@ -1,0 +1,37 @@
+query Me {
+  me {
+    id
+    username
+    email
+    emailVerificationSentAt
+    emailVerified
+    accountType
+    updatedAt
+    createdAt
+    userInfo {
+      id
+      firstName
+      lastName
+      dateOfBirth
+      country
+      postcode
+      occupation
+      updatedAt
+      createdAt
+    }
+    balances {
+      amount
+      currency
+    }
+    businessInfo {
+      id
+      name
+      uen
+      country
+      postalCode
+      address
+      updatedAt
+      createdAt
+    }
+  }
+}

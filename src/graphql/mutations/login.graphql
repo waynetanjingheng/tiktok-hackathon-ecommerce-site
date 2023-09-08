@@ -1,0 +1,5 @@
+mutation Login($loginToken: String!, $otp: String!) {
+  login(loginToken: $loginToken, otp: $otp) {
+    accessToken
+  }
+}

@@ -1,0 +1,25 @@
+mutation RegisterIndividual(
+  $username: String!
+  $email: String!
+  $password: String!
+  $firstName: String!
+  $lastName: String!
+  $dateOfBirth: String!
+  $country: String!
+  $postcode: String!
+  $occupation: String!
+) {
+  registerIndividual(
+    username: $username
+    email: $email
+    password: $password
+    firstName: $firstName
+    lastName: $lastName
+    dateOfBirth: $dateOfBirth
+    country: $country
+    postcode: $postcode
+    occupation: $occupation
+  ) {
+    accessToken
+  }
+}
