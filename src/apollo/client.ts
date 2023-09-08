@@ -18,13 +18,13 @@ import {
   });
   
   const authLink = new ApolloLink((operation, forward) => {
-    const accessToken = process.env.REACT_APP_MARKETPLACE_BUSINESS_AUTH_TOKEN;
-    // const apiKey = process.env.REACT_APP_MARKETPLACE_BUSINESS_API_KEY;
+    // const accessToken = process.env.REACT_APP_MARKETPLACE_BUSINESS_AUTH_TOKEN;
+    const apiKey = process.env.REACT_APP_MARKETPLACE_BUSINESS_API_KEY;
   
     operation.setContext({
       headers: {
-        authorization: accessToken ? `Bearer ${accessToken}` : "",
-        // authorization: apiKey ? `Bearer ${apiKey}` : "",
+        // authorization: accessToken ? `Bearer ${accessToken}` : "",
+        authorization: apiKey ? `Bearer ${apiKey}` : "",
       },
     });
   

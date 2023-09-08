@@ -23,9 +23,11 @@ const QRPayment = () => {
 
     const order_id = uuid4();
 
+    const initialQRvalue = uuid4()
+
     const [requestQR] = useMerchantRequestQrMutation();
 
-    const [QRvalue, setQRvalue] = useState('86060fc9-be55-42fc-ab1f-d25ea0c5916c')
+    const [QRvalue, setQRvalue] = useState(initialQRvalue)
 
     async function getQRstring() {
         const { data } =  await requestQR({
@@ -49,20 +51,24 @@ const QRPayment = () => {
         console.log(id)
     }
 
-    // useEffect(() => {getQRstring()}, [])
+    useEffect(() => {getQRstring()}, [])
 
     console.log(QRvalue)
 
-    const { data, startPolling, stopPolling } = useMerchantGetQrDetailsQuery({
-        pollInterval: 500,
+    const { data, startPolling, stopPolling, refetch } = useMerchantGetQrDetailsQuery({
+        // pollInterval: 500,
         variables: {
             merchantGetQrDetailsId: QRvalue,
         }
     })
 
-    useEffect(() => {
-        startPolling(500);
-    }, [startPolling])
+    // useEffect(() => {
+    //     startPolling(500);
+    // }, [startPolling])
+
+    // useEffect(() => {
+    //     refetch();
+    // }, [refetch])
 
     console.log(data)
 
