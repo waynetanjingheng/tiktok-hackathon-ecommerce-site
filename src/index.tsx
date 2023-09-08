@@ -4,16 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { CartProvider } from 'react-use-cart'
+import { ApolloProvider } from '@apollo/client';
+import { client } from './apollo/client';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-    <CartProvider>
-        <React.StrictMode>
-            <App />
-        </React.StrictMode>
-    </CartProvider>
+    <ApolloProvider client={client}>
+        <CartProvider>
+            <React.StrictMode>
+                <App />
+            </React.StrictMode>
+        </CartProvider>
+    </ApolloProvider>
 );
 
 // If you want to start measuring performance in your app, pass a function
