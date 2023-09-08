@@ -1,0 +1,13 @@
+mutation MerchantRequestQR($orderId: String!, $amount: Float!, $currency: Currency!) {
+  merchantRequestQR(orderId: $orderId, amount: $amount, currency: $currency) {
+    id
+    orderId
+    customerId
+    merchantId
+    amount
+    currency
+    merchantPaymentStatus
+    updatedAt
+    createdAt
+  }
+}

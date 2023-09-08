@@ -340,6 +340,13 @@ export enum ApiKeyType {
   CREATE_PAYMENT_QR = 'CREATE_PAYMENT_QR'
 }
 
+export type MerchantGetQrDetailsQueryVariables = Exact<{
+  merchantGetQrDetailsId: Scalars['String']['input'];
+}>;
+
+
+export type MerchantGetQrDetailsQuery = { __typename?: 'Query', merchantGetQRDetails: { __typename?: 'MerchantPayment', id: string, orderId: string, customerId?: string | null, merchantId: string, amount: number, currency: Currency, merchantPaymentStatus: MerchantPaymentStatus, updatedAt: any, createdAt: any } };
+
 export type GetTransactionSummaryQueryVariables = Exact<{
   fromDate: Scalars['DateTime']['input'];
   currency: Currency;
@@ -354,12 +361,10 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type MeQuery = { __typename?: 'Query', me: { __typename?: 'User', id: string, username: string, email: string, emailVerificationSentAt?: any | null, emailVerified: boolean, accountType: AccountType, updatedAt: any, createdAt: any, userInfo: { __typename?: 'UserInfo', id: string, firstName: string, lastName: string, dateOfBirth: string, country: string, postcode: string, occupation: string, updatedAt: any, createdAt: any }, balances: Array<{ __typename?: 'Balance', amount: number, currency: Currency }>, businessInfo?: { __typename?: 'BusinessInfo', id: string, name: string, uen: string, country: string, postalCode: string, address: string, updatedAt: any, createdAt: any } | null } };
 
-export type MerchantGetQrDetailsQueryVariables = Exact<{
-  merchantGetQrDetailsId: Scalars['String']['input'];
-}>;
+export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MerchantGetQrDetailsQuery = { __typename?: 'Query', merchantGetQRDetails: { __typename?: 'MerchantPayment', amount: number, currency: Currency, merchantId: string, orderId: string } };
+export type HelloQuery = { __typename?: 'Query', hello: string };
 
 export type TransactionFullQueryVariables = Exact<{
   fromDate: Scalars['DateTime']['input'];
@@ -370,11 +375,6 @@ export type TransactionFullQueryVariables = Exact<{
 
 export type TransactionFullQuery = { __typename?: 'Query', transactions: { __typename?: 'TransactionDetails', transactionsIn: Array<{ __typename?: 'Transaction', id: string, userId: string, currency: Currency, amount: number, type: TransactionType, updatedAt: any, createdAt: any }>, transactionsOut: Array<{ __typename?: 'Transaction', id: string, userId: string, currency: Currency, amount: number, type: TransactionType, updatedAt: any, createdAt: any }> } };
 
-export type HelloQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type HelloQuery = { __typename?: 'Query', hello: string };
-
 export type ConfirmDepositMutationVariables = Exact<{
   paypalCheckoutId: Scalars['String']['input'];
 }>;
@@ -382,13 +382,15 @@ export type ConfirmDepositMutationVariables = Exact<{
 
 export type ConfirmDepositMutation = { __typename?: 'Mutation', confirmDeposit: { __typename?: 'PayPalDeposit', id: string, paypalCheckoutId?: string | null, currency: Currency, amount: number, userId: string, fees?: number | null, status: PayPalStatus, updatedAt: any, createdAt: any } };
 
-export type LoginMutationVariables = Exact<{
-  loginToken: Scalars['String']['input'];
-  otp: Scalars['String']['input'];
+export type MakeInternalTransferMutationVariables = Exact<{
+  amount: Scalars['Float']['input'];
+  currency: Currency;
+  toUsername: Scalars['String']['input'];
+  note: Scalars['String']['input'];
 }>;
 
 
-export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthPayload', accessToken: string } };
+export type MakeInternalTransferMutation = { __typename?: 'Mutation', makeInternalTransfer: { __typename?: 'InternalTransfer', amount: number, createdAt: any, currency: Currency, id: string, note: string, receiverId: string, senderId: string, updatedAt: any } };
 
 export type LoginRequestMutationVariables = Exact<{
   usernameOrEmail: Scalars['String']['input'];
@@ -398,6 +400,31 @@ export type LoginRequestMutationVariables = Exact<{
 
 
 export type LoginRequestMutation = { __typename?: 'Mutation', loginRequest: { __typename?: 'LoginRequestPayload', loginToken: string } };
+
+export type MerchantRequestQrMutationVariables = Exact<{
+  orderId: Scalars['String']['input'];
+  amount: Scalars['Float']['input'];
+  currency: Currency;
+}>;
+
+
+export type MerchantRequestQrMutation = { __typename?: 'Mutation', merchantRequestQR: { __typename?: 'MerchantPayment', id: string, orderId: string, customerId?: string | null, merchantId: string, amount: number, currency: Currency, merchantPaymentStatus: MerchantPaymentStatus, updatedAt: any, createdAt: any } };
+
+export type LoginMutationVariables = Exact<{
+  loginToken: Scalars['String']['input'];
+  otp: Scalars['String']['input'];
+}>;
+
+
+export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthPayload', accessToken: string } };
+
+export type RequestDepositMutationVariables = Exact<{
+  amount: Scalars['Float']['input'];
+  currency: Currency;
+}>;
+
+
+export type RequestDepositMutation = { __typename?: 'Mutation', requestDeposit: { __typename?: 'PayPalDeposit', id: string, paypalCheckoutId?: string | null, currency: Currency, amount: number, userId: string, fees?: number | null, status: PayPalStatus, updatedAt: any, createdAt: any } };
 
 export type RegisterBusinessMutationVariables = Exact<{
   username: Scalars['String']['input'];
@@ -418,24 +445,6 @@ export type RegisterBusinessMutationVariables = Exact<{
 
 
 export type RegisterBusinessMutation = { __typename?: 'Mutation', registerBusiness: { __typename?: 'AuthPayload', accessToken: string } };
-
-export type RequestDepositMutationVariables = Exact<{
-  amount: Scalars['Float']['input'];
-  currency: Currency;
-}>;
-
-
-export type RequestDepositMutation = { __typename?: 'Mutation', requestDeposit: { __typename?: 'PayPalDeposit', id: string, paypalCheckoutId?: string | null, currency: Currency, amount: number, userId: string, fees?: number | null, status: PayPalStatus, updatedAt: any, createdAt: any } };
-
-export type MakeInternalTransferMutationVariables = Exact<{
-  amount: Scalars['Float']['input'];
-  currency: Currency;
-  toUsername: Scalars['String']['input'];
-  note: Scalars['String']['input'];
-}>;
-
-
-export type MakeInternalTransferMutation = { __typename?: 'Mutation', makeInternalTransfer: { __typename?: 'InternalTransfer', amount: number, createdAt: any, currency: Currency, id: string, note: string, receiverId: string, senderId: string, updatedAt: any } };
 
 export type RegisterIndividualMutationVariables = Exact<{
   username: Scalars['String']['input'];
@@ -462,6 +471,49 @@ export type RequestWithdrawMutationVariables = Exact<{
 export type RequestWithdrawMutation = { __typename?: 'Mutation', requestWithdraw: { __typename?: 'PayPalWithdraw', id: string, paypalPaymentId?: string | null, currency: Currency, amount: number, userId: string, status: PayPalStatus, fees?: number | null, updatedAt: any, createdAt: any } };
 
 
+export const MerchantGetQrDetailsDocument = gql`
+    query merchantGetQRDetails($merchantGetQrDetailsId: String!) {
+  merchantGetQRDetails(id: $merchantGetQrDetailsId) {
+    id
+    orderId
+    customerId
+    merchantId
+    amount
+    currency
+    merchantPaymentStatus
+    updatedAt
+    createdAt
+  }
+}
+    `;
+
+/**
+ * __useMerchantGetQrDetailsQuery__
+ *
+ * To run a query within a React component, call `useMerchantGetQrDetailsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMerchantGetQrDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMerchantGetQrDetailsQuery({
+ *   variables: {
+ *      merchantGetQrDetailsId: // value for 'merchantGetQrDetailsId'
+ *   },
+ * });
+ */
+export function useMerchantGetQrDetailsQuery(baseOptions: Apollo.QueryHookOptions<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>(MerchantGetQrDetailsDocument, options);
+      }
+export function useMerchantGetQrDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>(MerchantGetQrDetailsDocument, options);
+        }
+export type MerchantGetQrDetailsQueryHookResult = ReturnType<typeof useMerchantGetQrDetailsQuery>;
+export type MerchantGetQrDetailsLazyQueryHookResult = ReturnType<typeof useMerchantGetQrDetailsLazyQuery>;
+export type MerchantGetQrDetailsQueryResult = Apollo.QueryResult<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>;
 export const GetTransactionSummaryDocument = gql`
     query GetTransactionSummary($fromDate: DateTime!, $currency: Currency!, $toDate: DateTime!) {
   getTransactionSummary(fromDate: $fromDate, currency: $currency, toDate: $toDate) {
@@ -566,44 +618,38 @@ export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
 export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
-export const MerchantGetQrDetailsDocument = gql`
-    query MerchantGetQRDetails($merchantGetQrDetailsId: String!) {
-  merchantGetQRDetails(id: $merchantGetQrDetailsId) {
-    amount
-    currency
-    merchantId
-    orderId
-  }
+export const HelloDocument = gql`
+    query Hello {
+  hello
 }
     `;
 
 /**
- * __useMerchantGetQrDetailsQuery__
+ * __useHelloQuery__
  *
- * To run a query within a React component, call `useMerchantGetQrDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMerchantGetQrDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
+ * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useMerchantGetQrDetailsQuery({
+ * const { data, loading, error } = useHelloQuery({
  *   variables: {
- *      merchantGetQrDetailsId: // value for 'merchantGetQrDetailsId'
  *   },
  * });
  */
-export function useMerchantGetQrDetailsQuery(baseOptions: Apollo.QueryHookOptions<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>) {
+export function useHelloQuery(baseOptions?: Apollo.QueryHookOptions<HelloQuery, HelloQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>(MerchantGetQrDetailsDocument, options);
+        return Apollo.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
       }
-export function useMerchantGetQrDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>) {
+export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>(MerchantGetQrDetailsDocument, options);
+          return Apollo.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
         }
-export type MerchantGetQrDetailsQueryHookResult = ReturnType<typeof useMerchantGetQrDetailsQuery>;
-export type MerchantGetQrDetailsLazyQueryHookResult = ReturnType<typeof useMerchantGetQrDetailsLazyQuery>;
-export type MerchantGetQrDetailsQueryResult = Apollo.QueryResult<MerchantGetQrDetailsQuery, MerchantGetQrDetailsQueryVariables>;
+export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
+export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
+export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
 export const TransactionFullDocument = gql`
     query TransactionFull($fromDate: DateTime!, $toDate: DateTime!, $currency: Currency!) {
   transactions(fromDate: $fromDate, toDate: $toDate, currency: $currency) {
@@ -658,38 +704,6 @@ export function useTransactionFullLazyQuery(baseOptions?: Apollo.LazyQueryHookOp
 export type TransactionFullQueryHookResult = ReturnType<typeof useTransactionFullQuery>;
 export type TransactionFullLazyQueryHookResult = ReturnType<typeof useTransactionFullLazyQuery>;
 export type TransactionFullQueryResult = Apollo.QueryResult<TransactionFullQuery, TransactionFullQueryVariables>;
-export const HelloDocument = gql`
-    query Hello {
-  hello
-}
-    `;
-
-/**
- * __useHelloQuery__
- *
- * To run a query within a React component, call `useHelloQuery` and pass it any options that fit your needs.
- * When your component renders, `useHelloQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useHelloQuery({
- *   variables: {
- *   },
- * });
- */
-export function useHelloQuery(baseOptions?: Apollo.QueryHookOptions<HelloQuery, HelloQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
-      }
-export function useHelloLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<HelloQuery, HelloQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<HelloQuery, HelloQueryVariables>(HelloDocument, options);
-        }
-export type HelloQueryHookResult = ReturnType<typeof useHelloQuery>;
-export type HelloLazyQueryHookResult = ReturnType<typeof useHelloLazyQuery>;
-export type HelloQueryResult = Apollo.QueryResult<HelloQuery, HelloQueryVariables>;
 export const ConfirmDepositDocument = gql`
     mutation ConfirmDeposit($paypalCheckoutId: String!) {
   confirmDeposit(paypalCheckoutId: $paypalCheckoutId) {
@@ -731,40 +745,54 @@ export function useConfirmDepositMutation(baseOptions?: Apollo.MutationHookOptio
 export type ConfirmDepositMutationHookResult = ReturnType<typeof useConfirmDepositMutation>;
 export type ConfirmDepositMutationResult = Apollo.MutationResult<ConfirmDepositMutation>;
 export type ConfirmDepositMutationOptions = Apollo.BaseMutationOptions<ConfirmDepositMutation, ConfirmDepositMutationVariables>;
-export const LoginDocument = gql`
-    mutation Login($loginToken: String!, $otp: String!) {
-  login(loginToken: $loginToken, otp: $otp) {
-    accessToken
+export const MakeInternalTransferDocument = gql`
+    mutation MakeInternalTransfer($amount: Float!, $currency: Currency!, $toUsername: String!, $note: String!) {
+  makeInternalTransfer(
+    amount: $amount
+    currency: $currency
+    toUsername: $toUsername
+    note: $note
+  ) {
+    amount
+    createdAt
+    currency
+    id
+    note
+    receiverId
+    senderId
+    updatedAt
   }
 }
     `;
-export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+export type MakeInternalTransferMutationFn = Apollo.MutationFunction<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>;
 
 /**
- * __useLoginMutation__
+ * __useMakeInternalTransferMutation__
  *
- * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useMakeInternalTransferMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMakeInternalTransferMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ * const [makeInternalTransferMutation, { data, loading, error }] = useMakeInternalTransferMutation({
  *   variables: {
- *      loginToken: // value for 'loginToken'
- *      otp: // value for 'otp'
+ *      amount: // value for 'amount'
+ *      currency: // value for 'currency'
+ *      toUsername: // value for 'toUsername'
+ *      note: // value for 'note'
  *   },
  * });
  */
-export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+export function useMakeInternalTransferMutation(baseOptions?: Apollo.MutationHookOptions<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+        return Apollo.useMutation<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>(MakeInternalTransferDocument, options);
       }
-export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
-export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export type MakeInternalTransferMutationHookResult = ReturnType<typeof useMakeInternalTransferMutation>;
+export type MakeInternalTransferMutationResult = Apollo.MutationResult<MakeInternalTransferMutation>;
+export type MakeInternalTransferMutationOptions = Apollo.BaseMutationOptions<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>;
 export const LoginRequestDocument = gql`
     mutation LoginRequest($usernameOrEmail: String!, $password: String!, $accountType: AccountType!) {
   loginRequest(
@@ -804,6 +832,125 @@ export function useLoginRequestMutation(baseOptions?: Apollo.MutationHookOptions
 export type LoginRequestMutationHookResult = ReturnType<typeof useLoginRequestMutation>;
 export type LoginRequestMutationResult = Apollo.MutationResult<LoginRequestMutation>;
 export type LoginRequestMutationOptions = Apollo.BaseMutationOptions<LoginRequestMutation, LoginRequestMutationVariables>;
+export const MerchantRequestQrDocument = gql`
+    mutation MerchantRequestQR($orderId: String!, $amount: Float!, $currency: Currency!) {
+  merchantRequestQR(orderId: $orderId, amount: $amount, currency: $currency) {
+    id
+    orderId
+    customerId
+    merchantId
+    amount
+    currency
+    merchantPaymentStatus
+    updatedAt
+    createdAt
+  }
+}
+    `;
+export type MerchantRequestQrMutationFn = Apollo.MutationFunction<MerchantRequestQrMutation, MerchantRequestQrMutationVariables>;
+
+/**
+ * __useMerchantRequestQrMutation__
+ *
+ * To run a mutation, you first call `useMerchantRequestQrMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useMerchantRequestQrMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [merchantRequestQrMutation, { data, loading, error }] = useMerchantRequestQrMutation({
+ *   variables: {
+ *      orderId: // value for 'orderId'
+ *      amount: // value for 'amount'
+ *      currency: // value for 'currency'
+ *   },
+ * });
+ */
+export function useMerchantRequestQrMutation(baseOptions?: Apollo.MutationHookOptions<MerchantRequestQrMutation, MerchantRequestQrMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<MerchantRequestQrMutation, MerchantRequestQrMutationVariables>(MerchantRequestQrDocument, options);
+      }
+export type MerchantRequestQrMutationHookResult = ReturnType<typeof useMerchantRequestQrMutation>;
+export type MerchantRequestQrMutationResult = Apollo.MutationResult<MerchantRequestQrMutation>;
+export type MerchantRequestQrMutationOptions = Apollo.BaseMutationOptions<MerchantRequestQrMutation, MerchantRequestQrMutationVariables>;
+export const LoginDocument = gql`
+    mutation Login($loginToken: String!, $otp: String!) {
+  login(loginToken: $loginToken, otp: $otp) {
+    accessToken
+  }
+}
+    `;
+export type LoginMutationFn = Apollo.MutationFunction<LoginMutation, LoginMutationVariables>;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [loginMutation, { data, loading, error }] = useLoginMutation({
+ *   variables: {
+ *      loginToken: // value for 'loginToken'
+ *      otp: // value for 'otp'
+ *   },
+ * });
+ */
+export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginMutation, LoginMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+      }
+export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
+export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const RequestDepositDocument = gql`
+    mutation RequestDeposit($amount: Float!, $currency: Currency!) {
+  requestDeposit(amount: $amount, currency: $currency) {
+    id
+    paypalCheckoutId
+    currency
+    amount
+    userId
+    fees
+    status
+    updatedAt
+    createdAt
+  }
+}
+    `;
+export type RequestDepositMutationFn = Apollo.MutationFunction<RequestDepositMutation, RequestDepositMutationVariables>;
+
+/**
+ * __useRequestDepositMutation__
+ *
+ * To run a mutation, you first call `useRequestDepositMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRequestDepositMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [requestDepositMutation, { data, loading, error }] = useRequestDepositMutation({
+ *   variables: {
+ *      amount: // value for 'amount'
+ *      currency: // value for 'currency'
+ *   },
+ * });
+ */
+export function useRequestDepositMutation(baseOptions?: Apollo.MutationHookOptions<RequestDepositMutation, RequestDepositMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<RequestDepositMutation, RequestDepositMutationVariables>(RequestDepositDocument, options);
+      }
+export type RequestDepositMutationHookResult = ReturnType<typeof useRequestDepositMutation>;
+export type RequestDepositMutationResult = Apollo.MutationResult<RequestDepositMutation>;
+export type RequestDepositMutationOptions = Apollo.BaseMutationOptions<RequestDepositMutation, RequestDepositMutationVariables>;
 export const RegisterBusinessDocument = gql`
     mutation RegisterBusiness($username: String!, $email: String!, $password: String!, $firstName: String!, $lastName: String!, $dateOfBirth: String!, $country: String!, $postcode: String!, $occupation: String!, $businessName: String!, $uen: String!, $businessCountry: String!, $businessPostcode: String!, $businessAddress: String!) {
   registerBusiness(
@@ -865,96 +1012,6 @@ export function useRegisterBusinessMutation(baseOptions?: Apollo.MutationHookOpt
 export type RegisterBusinessMutationHookResult = ReturnType<typeof useRegisterBusinessMutation>;
 export type RegisterBusinessMutationResult = Apollo.MutationResult<RegisterBusinessMutation>;
 export type RegisterBusinessMutationOptions = Apollo.BaseMutationOptions<RegisterBusinessMutation, RegisterBusinessMutationVariables>;
-export const RequestDepositDocument = gql`
-    mutation RequestDeposit($amount: Float!, $currency: Currency!) {
-  requestDeposit(amount: $amount, currency: $currency) {
-    id
-    paypalCheckoutId
-    currency
-    amount
-    userId
-    fees
-    status
-    updatedAt
-    createdAt
-  }
-}
-    `;
-export type RequestDepositMutationFn = Apollo.MutationFunction<RequestDepositMutation, RequestDepositMutationVariables>;
-
-/**
- * __useRequestDepositMutation__
- *
- * To run a mutation, you first call `useRequestDepositMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useRequestDepositMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [requestDepositMutation, { data, loading, error }] = useRequestDepositMutation({
- *   variables: {
- *      amount: // value for 'amount'
- *      currency: // value for 'currency'
- *   },
- * });
- */
-export function useRequestDepositMutation(baseOptions?: Apollo.MutationHookOptions<RequestDepositMutation, RequestDepositMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<RequestDepositMutation, RequestDepositMutationVariables>(RequestDepositDocument, options);
-      }
-export type RequestDepositMutationHookResult = ReturnType<typeof useRequestDepositMutation>;
-export type RequestDepositMutationResult = Apollo.MutationResult<RequestDepositMutation>;
-export type RequestDepositMutationOptions = Apollo.BaseMutationOptions<RequestDepositMutation, RequestDepositMutationVariables>;
-export const MakeInternalTransferDocument = gql`
-    mutation MakeInternalTransfer($amount: Float!, $currency: Currency!, $toUsername: String!, $note: String!) {
-  makeInternalTransfer(
-    amount: $amount
-    currency: $currency
-    toUsername: $toUsername
-    note: $note
-  ) {
-    amount
-    createdAt
-    currency
-    id
-    note
-    receiverId
-    senderId
-    updatedAt
-  }
-}
-    `;
-export type MakeInternalTransferMutationFn = Apollo.MutationFunction<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>;
-
-/**
- * __useMakeInternalTransferMutation__
- *
- * To run a mutation, you first call `useMakeInternalTransferMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useMakeInternalTransferMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [makeInternalTransferMutation, { data, loading, error }] = useMakeInternalTransferMutation({
- *   variables: {
- *      amount: // value for 'amount'
- *      currency: // value for 'currency'
- *      toUsername: // value for 'toUsername'
- *      note: // value for 'note'
- *   },
- * });
- */
-export function useMakeInternalTransferMutation(baseOptions?: Apollo.MutationHookOptions<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>(MakeInternalTransferDocument, options);
-      }
-export type MakeInternalTransferMutationHookResult = ReturnType<typeof useMakeInternalTransferMutation>;
-export type MakeInternalTransferMutationResult = Apollo.MutationResult<MakeInternalTransferMutation>;
-export type MakeInternalTransferMutationOptions = Apollo.BaseMutationOptions<MakeInternalTransferMutation, MakeInternalTransferMutationVariables>;
 export const RegisterIndividualDocument = gql`
     mutation RegisterIndividual($username: String!, $email: String!, $password: String!, $firstName: String!, $lastName: String!, $dateOfBirth: String!, $country: String!, $postcode: String!, $occupation: String!) {
   registerIndividual(

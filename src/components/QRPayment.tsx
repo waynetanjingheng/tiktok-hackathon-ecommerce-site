@@ -5,19 +5,66 @@ import BaseButton from "./BaseButton"; // REMOVE AFTER GQL INTEGRATION
 import { PiSmileySticker } from 'react-icons/pi'
 import { useNavigate } from "react-router";
 
+import { useMerchantRequestQrMutation, useMerchantGetQrDetailsQuery, Currency } from "../generated/graphql";
+import { v4 as uuid4 } from 'uuid';
+import { useState, useEffect } from "react";
 
 const QRPayment = () => {
-    const MERCHANT_NAME = "Marketplace Pte Ltd";
-
-    const { cartTotal } = useCart();
-
-    const QRvalue = "Thisisatemporarystring"; // EDIT FOR QGL INTEGRATION
 
     const navigate = useNavigate();
 
     const redirectToPaymentSuccess = () => {
         navigate('/payment/success');
     }
+
+    const MERCHANT_NAME = "Marketplace Pte Ltd";
+
+    const { cartTotal } = useCart();
+
+    const order_id = uuid4();
+
+    const [requestQR] = useMerchantRequestQrMutation();
+
+    const [QRvalue, setQRvalue] = useState('86060fc9-be55-42fc-ab1f-d25ea0c5916c')
+
+    async function getQRstring() {
+        const { data } =  await requestQR({
+            variables: {
+                orderId: order_id,
+                amount: cartTotal,
+                currency: Currency.SGD
+            }
+        })
+
+        console.log(`Merchant QR request result: ${data}`);
+
+        if (!data) {
+            console.log("Data is null or undefined.")
+            return
+        }
+
+        const id = data["merchantRequestQR"].id;
+
+        setQRvalue(id)
+        console.log(id)
+    }
+
+    // useEffect(() => {getQRstring()}, [])
+
+    console.log(QRvalue)
+
+    const { data, startPolling, stopPolling } = useMerchantGetQrDetailsQuery({
+        pollInterval: 500,
+        variables: {
+            merchantGetQrDetailsId: QRvalue,
+        }
+    })
+
+    useEffect(() => {
+        startPolling(500);
+    }, [startPolling])
+
+    console.log(data)
 
   return (
     <Card padding="lg" radius="md">
